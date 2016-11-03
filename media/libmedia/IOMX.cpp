@@ -25,7 +25,6 @@
 #include <media/IOMX.h>
 #include <media/stagefright/foundation/ADebug.h>
 #include <media/openmax/OMX_IndexExt.h>
-#include <media/AVMediaExtensions.h>
 
 namespace android {
 
@@ -973,11 +972,7 @@ status_t BnOMX::onTransact(
             MetadataBufferType type = kMetadataBufferTypeInvalid;
             status_t err = storeMetaDataInBuffers(node, port_index, enable, &type);
 
-            if ((err != OK) && (type == kMetadataBufferTypeInvalid)) {
-                android_errorWriteLog(0x534e4554, "26324358");
-            }
-
-            reply->writeInt32(type);
+         reply->writeInt32(type);
             reply->writeInt32(err);
 
             return NO_ERROR;

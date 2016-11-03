@@ -377,7 +377,7 @@ bool SoftHEVC::setDecodeArgs(ivd_video_decode_ip_t *ps_dec_ip,
     uint8_t *pBuf;
     if (outHeader) {
         if (outHeader->nAllocLen < sizeY + (sizeUV * 2)) {
-            android_errorWriteLog(0x534e4554, "27833616");
+            android_errorWriteLog(0x534e4554, "27569635");
             return false;
         }
         pBuf = outHeader->pBuffer;
@@ -528,6 +528,7 @@ void SoftHEVC::onQueueFilled(OMX_U32 portIndex) {
             if (!setDecodeArgs(&s_dec_ip, &s_dec_op, inHeader, outHeader, timeStampIx)) {
                 ALOGE("Decoder arg setup failed");
                 notify(OMX_EventError, OMX_ErrorUndefined, 0, NULL);
+                mSignalledError = true;
                 return;
             }
 
